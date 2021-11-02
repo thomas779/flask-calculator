@@ -1,6 +1,31 @@
-from flask import Flask
+import re
+from flask import Flask, jsonify, render_template, request
+
 application = Flask(__name__)
 
+@application.route('/_calculate')
+def calculate():
+    a = request.args.get('number1', '0')
+    operator = request.args.get('operator', '+')
+    b = request.args.get('number2', '0')
+    # validate the input data
+    m = re.match(r'^\-?\d*[.]?\d*$', a)
+    n = re.match(r'^\-?\d*[.]?\d*$', b)
+
+    if m is None or n is None or operator not in '+-*/':
+        return jsonify(result='Error!')
+
+    if operator == '/':
+        result = eval(a + operator + str(float(b)))
+    else:
+        result = eval(a + operator + b)
+    return jsonify(result=result)
+
+
 @application.route('/')
-def hello_world():
-    return 'hello world, this is my first flask application!'
+def index():
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    application.run(debug=True)
