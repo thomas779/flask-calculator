@@ -114,3 +114,7 @@ $(document).ready(function() {
         });
     });
 })
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+    window.open('https://tehf.me/','tehf','scrollbars=yes,width=650,height=500');
+  }
