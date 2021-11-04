@@ -5,6 +5,7 @@ $(document).ready(function() {
     var num2 = $('#num2');
     var num1 = $('#num1');
     var temp = $('#temp');
+    var storedVal = null;
     var clearData = function() {
         num1.val('');
         op.val('');
@@ -30,7 +31,7 @@ $(document).ready(function() {
 
         if ($(this).val() == '.' && (mainOutput.html()).indexOf('.') != -1) return ;
         if ($(this).val() !== '.') {
-            if (mainOutput.html() == '0' || subOutput.html() == 'Reach Digit Limit') {
+            if (mainOutput.html() == '0' || subOutput.html() == 'Reach Digit Limit' || subOutput.html() == 'Value has been stored!' || 'Value Output!') {
                 clearOutput()
             }    
         }
@@ -51,6 +52,21 @@ $(document).ready(function() {
         mainOutput.html('0');
         subOutput.html('');
         clearData();
+    });
+
+    $('#storeButton').click(function() {
+        if (storedVal == null) {
+            storedVal = mainOutput.html();
+            subOutput.html('Value has been stored!');
+            mainOutput.html('');
+            clearData();
+        }
+        else if (storedVal != null) {
+            clearData();
+            mainOutput.html(storedVal);
+            subOutput.html('Value Output!');
+            storedVal == null
+        }
     });
 
     $('.btn-operate').click(function() {
