@@ -61,11 +61,11 @@ $(document).ready(function() {
             mainOutput.html('');
             clearData();
         }
-        else if (storedVal != null) {
+        else {
             clearData();
             mainOutput.html(storedVal);
             subOutput.html('Value Output!');
-            storedVal == null
+            storedVal = null;
         }
     });
 
